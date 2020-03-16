@@ -157,6 +157,53 @@ namespace corepractice.Controllers
             return false;
         }
 
+        // GET
+        [HttpGet]
+        public async Task<IActionResult> Search()
+        {
+            var model = new UserSearchViewModel();
+            return View(model);
+        }
+
+        // POST
+        [HttpPost]
+        public async Task<IActionResult> Search(UserSearchViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                switch (model.Type)
+                {
+                    case 1:
+                        Console.WriteLine(model.Firstname);
+                        break;
+                    case 2:
+                        Console.WriteLine(model.Lastname);
+                        break;
+                    case 3:
+                        Console.WriteLine(model.DateOfBirth);
+                        break;
+                    case 4:
+                        Console.WriteLine(model.Email);
+                        break;
+                    case 5:
+                        Console.WriteLine(model.Phone);
+                        break;
+                    case 6:
+                        Console.WriteLine(model.Mobile);
+                        break;
+                    default:
+                        return NotFound();
+                }
+
+                // Call update method on the repository service passing it the
+                // user object to update the data in the database table
+                // User updatedUser = _userRepository.Update(user);
+
+                return RedirectToAction("index");
+            }
+            return View(model);
+        }
+
         /*
         private readonly Context _context;
 
